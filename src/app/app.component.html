@@ -1,3 +1,10 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+  <h1>
+    {{title}}
+  </h1>
+  <app-image-crop #imageCrop [imageUrl]="inputImage" [croppieOptions]="croppieOptions" (result)="onResult($event)"></app-image-crop>
+  <div style="text-align: center;">
+    <img *ngIf="outputImage" src="{{outputImage}}" />
+    <button type="button" class="btn btn-primary" (click)="onGetCropBoxDataClick()">GET CROP BOX DATA</button>
+  </div>
+</div>
