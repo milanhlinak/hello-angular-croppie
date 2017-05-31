@@ -2,9 +2,23 @@
   <h1>
     {{title}}
   </h1>
+
   <app-image-crop #imageCrop [imageUrl]="inputImage" [croppieOptions]="croppieOptions" (result)="onResult($event)"></app-image-crop>
-  <div style="text-align: center;">
-    <img *ngIf="outputImage" src="{{outputImage}}" />
+
+  <input type="range" #width min="1" max="{{croppieOptions.boundary.width}}" value="{{croppieOptions.viewport.width}}" (input)="resizeViewport(width.value, height.value)"
+  />
+  <p>viewport width: {{width.value}}</p>
+  <input type="range" #height min="1" max="{{croppieOptions.boundary.height}}" value="{{croppieOptions.viewport.height}}" (input)="resizeViewport(width.value, height.value)"
+  />
+  <p>viewport height: {{height.value}}</p>
+
+  <div style="text-align: center; margin-top: 20px;">
     <button type="button" class="btn btn-primary" (click)="onGetCropBoxDataClick()">GET CROP BOX DATA</button>
+    <p style="margin-top: 20px;">{{cropBoxData}}</p>
   </div>
+
+  <div style="text-align: center;">
+    <img *ngIf="outputImage" src="{{outputImage}}" style="border: 1px solid #ddd;" />
+  </div>
+
 </div>

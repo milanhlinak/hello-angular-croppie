@@ -14,9 +14,12 @@ export class AppComponent {
   title = 'Hello Angular Croppie!';
   inputImage = '/assets/image.jpg';
   outputImage = null;
+  cropBoxData = '';
   croppieOptions: CroppieOptions = {
     boundary: { width: 500, height: 500 },
     viewport: { width: 300, height: 300, type: 'square' },
+    showZoomer: false,
+    enforceBoundary: false
   };
 
   onResult(result: any) {
@@ -30,7 +33,12 @@ export class AppComponent {
     // const topLeftY = object.points[1];
     // const bottomRightX = object.points[2];
     // const bottomRightY = object.points[3];
-    console.log(object);
+    this.cropBoxData = JSON.stringify(object);
+    console.log(JSON.stringify(object));
+  }
+
+  resizeViewport(width: number, height: number) {
+    this.imageCrop.resizeViewport(width, height);
   }
 
 }

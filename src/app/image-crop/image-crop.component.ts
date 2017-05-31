@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, Renderer } from '@angular/core';
 import { CroppieOptions } from 'croppie';
 import Croppie from 'croppie';
 
@@ -16,7 +16,7 @@ export class ImageCropComponent implements OnInit {
   @Input() croppieOptions: CroppieOptions;
   @Output() result: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private renderer: Renderer) { }
 
   ngOnInit(): void {
     this.croppie = new Croppie(this.image.nativeElement, this.croppieOptions);
@@ -33,6 +33,12 @@ export class ImageCropComponent implements OnInit {
 
   get() {
     return this.croppie.get();
+  }
+
+  resizeViewport(width: number, height: number) {
+    const viewport: any = this.image.nativeElement.querySelector('.cr-viewport');
+    this.renderer.setElementStyle(viewport, 'width', width + 'px');
+    this.renderer.setElementStyle(viewport, 'height', height + 'px');
   }
 
 }
